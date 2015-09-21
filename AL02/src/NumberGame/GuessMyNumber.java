@@ -36,8 +36,6 @@ public class GuessMyNumber {
         // TODO: write your code here
 
         for(int i = 0; i < array.length; i++) {
-            System.out.println(array[i] + " " + oracle(array[i]));
-
             if(oracle(array[i]) == 0)
                 return array[i];
         }
