@@ -72,6 +72,17 @@ public class DancersTest {
     }
 
     @Test
+    public void testSimplePair() throws Exception {
+        Dancers tree = new Dancers();
+
+        Dancer male = new Dancer(1, true, 180);
+        Dancer female = new Dancer(2, false, 160);
+
+        assertNull(tree.findPartnerFor(male));
+        assertEquals(new AbstractMap.SimpleEntry<>(female, male), tree.findPartnerFor(female));
+    }
+
+    @Test
     public void testAdd() throws Exception {
         Dancers tree = new Dancers();
 

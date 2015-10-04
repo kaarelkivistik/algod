@@ -46,10 +46,6 @@ public class Dancers implements IDancers {
         return node;
     }
 
-    public Dancer findPartnerFor(int height, boolean male) {
-        return null;
-    }
-
     public Dancer minimum(Dancer node) {
         while(node.getLeft() != null)
             node = node.getLeft();
@@ -79,7 +75,7 @@ public class Dancers implements IDancers {
     }
     public Dancer predecessor(Dancer node) {
         if(node.getLeft() != null)
-            return minimum(node.getLeft());
+            return maximum(node.getLeft());
 
         Dancer parent = node.getParent();
 
@@ -109,12 +105,9 @@ public class Dancers implements IDancers {
     public void replaceSubtree(Dancer node, Dancer replacement) {
         Dancer parent = node.getParent();
 
-        if(parent == null) {
+        if(parent == null)
             root = replacement;
-
-        //   if(replacement != null)
-        //        replacement.setParent(null);
-        } else if(node == parent.getLeft())
+        else if(node == parent.getLeft())
             parent.setLeft(replacement);
         else
             parent.setRight(replacement);
@@ -162,7 +155,7 @@ public class Dancers implements IDancers {
             if(successor != null) {
                 delete((Dancer) dancer);
                 delete((Dancer) successor);
-                
+
                 return new AbstractMap.SimpleEntry<>(dancer, successor);
             }
         } else {
