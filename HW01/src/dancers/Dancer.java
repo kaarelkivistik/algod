@@ -31,11 +31,27 @@ public class Dancer implements IDancer {
     }
 
     @Override
-    public String toString() {
-        return "Dancer{" +
-                "ID=" + ID +
-                ", male=" + male +
-                ", height=" + height +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Dancer dancer = (Dancer) o;
+
+        if (getID() != dancer.getID()) return false;
+        if (isMale() != dancer.isMale()) return false;
+        return getHeight() == dancer.getHeight();
+
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setMale(boolean male) {
+        this.male = male;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
     }
 }
