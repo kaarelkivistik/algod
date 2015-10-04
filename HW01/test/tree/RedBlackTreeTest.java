@@ -3,7 +3,6 @@ package tree;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static org.hamcrest.CoreMatchers.*;
 
 /**
  * Created by kaarel on 03/10/15.
@@ -12,66 +11,67 @@ public class RedBlackTreeTest {
 
     @Test
     public void testInsert() throws Exception {
-        Node expectedRootNode = new Node(2);
+        RedBlackTree.Node<Integer, Object> expectedRootNode = new RedBlackTree.Node<>(2);
         expectedRootNode.setBlack(true);
-        expectedRootNode.setLeft(new Node(1));
+        expectedRootNode.setLeft(new RedBlackTree.Node<>(1));
         expectedRootNode.getLeft().setBlack(true);
-        expectedRootNode.setRight(new Node(4));
+        expectedRootNode.setRight(new RedBlackTree.Node<>(4));
         expectedRootNode.getRight().setBlack(true);
-        expectedRootNode.getRight().setLeft(new Node(3));
-        expectedRootNode.getRight().setRight(new Node(5));
+        expectedRootNode.getRight().setLeft(new RedBlackTree.Node<>(3));
+        expectedRootNode.getRight().setRight(new RedBlackTree.Node<>(5));
 
         expectedRootNode.getRight().setBlack(false);
         expectedRootNode.getRight().getLeft().setBlack(true);
         expectedRootNode.getRight().getRight().setBlack(true);
-        expectedRootNode.getRight().getRight().setRight(new Node(5));
+        expectedRootNode.getRight().getRight().setRight(new RedBlackTree.Node<>(5));
 
-        RedBlackTree tree = new RedBlackTree();
+        RedBlackTree<Integer, Object> tree = new RedBlackTree<>();
 
-        tree.insert(new Node(1));
-        tree.insert(new Node(2));
-        tree.insert(new Node(3));
-        tree.insert(new Node(4));
-        tree.insert(new Node(5));
-        tree.insert(new Node(5));
+        tree.put(1, null);
+        tree.put(2, null);
+        tree.put(3, null);
+        tree.put(4, null);
+        tree.put(5, null);
+        tree.put(5, null);
 
         assertEquals(expectedRootNode.toString(), tree.getRoot().toString());
     }
 
     @Test
     public void testInsertAgain() throws Exception {
-        Node expectedRootNode = new Node(9);
+        RedBlackTree.Node<Integer, Object> expectedRootNode = new RedBlackTree.Node<>(9);
         expectedRootNode.setBlack(true);
-        expectedRootNode.setLeft(new Node(7));
+        expectedRootNode.setLeft(new RedBlackTree.Node<>(7));
         expectedRootNode.getLeft().setBlack(true);
-        expectedRootNode.setRight(new Node(10));
+        expectedRootNode.setRight(new RedBlackTree.Node<>(10));
         expectedRootNode.getRight().setBlack(true);
-        expectedRootNode.getLeft().setLeft(new Node(6));
-        expectedRootNode.getLeft().setRight(new Node(8));
+        expectedRootNode.getLeft().setLeft(new RedBlackTree.Node<>(6));
+        expectedRootNode.getLeft().setRight(new RedBlackTree.Node<>(8));
 
-        RedBlackTree tree = new RedBlackTree();
+        RedBlackTree<Integer, Object> tree = new RedBlackTree<>();
 
-        tree.insert(new Node(10));
-        tree.insert(new Node(9));
-        tree.insert(new Node(8));
-        tree.insert(new Node(7));
-        tree.insert(new Node(6));
+        tree.put(10, null);
+        tree.put(9, null);
+        tree.put(8, null);
+        tree.put(7, null);
+        tree.put(6, null);
 
         assertEquals(expectedRootNode.toString(), tree.getRoot().toString());
     }
 
     @Test
     public void testFind() throws Exception {
-        RedBlackTree tree = new RedBlackTree();
+        RedBlackTree<Integer, Object> tree = new RedBlackTree<>();
 
-        Node node15 = new Node(15);
+        RedBlackTree.Node<Integer, Object> node15 = new RedBlackTree.Node<>(15);
 
-        tree.insert(new Node(10));
-        tree.insert(new Node(5));
-        tree.insert(new Node(20));
-        tree.insert(node15);
-        tree.insert(new Node(25));
+        tree.put(10, null);
+        tree.put(5, null);
+        tree.put(20, null);
+        tree.put(15, "foobar");
+        tree.put(25, null);
 
-        assertEquals(node15, tree.find(15));
+        assertNotNull(tree.get(15));
+        assertEquals("foobar", tree.get(15).getValue());
     }
 }
