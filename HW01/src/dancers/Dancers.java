@@ -13,21 +13,13 @@ import java.util.function.Consumer;
  * Created by kaarel on 04/10/15.
  */
 public class Dancers implements IDancers {
-    private Node root;
+    private Dancer root;
 
-    public Node getRoot() {
+    public Dancer getRoot() {
         return root;
     }
 
-    public void setRoot(Node root) {
-        this.root = root;
-    }
-
-    public Node add(Dancer dancer) {
-        return add(new Node(dancer));
-    }
-
-    public Node add(Node node) {
+    public Dancer add(Dancer node) {
         if(root == null)
             root = node;
         else
@@ -36,7 +28,7 @@ public class Dancers implements IDancers {
         return node;
     }
 
-    public Node add(Node root, Node node) {
+    public Dancer add(Dancer root, Dancer node) {
         int comparison = node.compareTo(root);
 
         if(comparison < 0) {
@@ -54,29 +46,29 @@ public class Dancers implements IDancers {
         return node;
     }
 
-    public Node findPartnerFor(int height, boolean male) {
+    public Dancer findPartnerFor(int height, boolean male) {
         return null;
     }
 
-    public Node minimum(Node node) {
+    public Dancer minimum(Dancer node) {
         while(node.getLeft() != null)
             node = node.getLeft();
 
         return node;
     }
 
-    public Node maximum(Node node) {
+    public Dancer maximum(Dancer node) {
         while(node.getRight() != null)
             node = node.getRight();
 
         return node;
     }
 
-    public Node successor(Node node) {
+    public Dancer successor(Dancer node) {
         if(node.getRight() != null)
             return minimum(node.getRight());
 
-        Node parent = node.getParent();
+        Dancer parent = node.getParent();
 
         while(parent != null && node == parent.getRight()) {
             node = parent;
@@ -86,7 +78,7 @@ public class Dancers implements IDancers {
         return parent;
     }
 
-    public void delete(Node node) {
+    public void delete(Dancer node) {
         if(node.getLeft() == null && node.getRight() == null) {
             replaceSubtree(node, null);
         } else if(node.getLeft() == null) {
@@ -94,15 +86,15 @@ public class Dancers implements IDancers {
         } else if(node.getRight() == null) {
             replaceSubtree(node, node.getLeft());
         } else {
-            Node successor = successor(node);
+            Dancer successor = successor(node);
 
             node.replace(successor);
             replaceSubtree(successor, successor.getRight());
         }
     }
 
-    public void replaceSubtree(Node node, Node replacement) {
-        Node parent = node.getParent();
+    public void replaceSubtree(Dancer node, Dancer replacement) {
+        Dancer parent = node.getParent();
 
         if(parent == null) {
             root = replacement;
@@ -122,7 +114,7 @@ public class Dancers implements IDancers {
         traverse(root, consumer);
     }
 
-    public void traverse(Node node, Consumer<Dancer> consumer) {
+    public void traverse(Dancer node, Consumer<Dancer> consumer) {
         if(node == null)
             return;
 
@@ -147,88 +139,6 @@ public class Dancers implements IDancers {
     @Override
     public List<IDancer> returnWaitingList() {
         return null;
-    }
-
-    public static class Node extends Dancer implements Comparable<Node> {
-
-        private Node left, right, parent;
-
-        public Node(int ID, boolean male, int height) {
-            super(ID, male, height);
-        }
-
-        public Node(Dancer dancer) {
-            this(dancer.getID(), dancer.isMale(), dancer.getHeight());
-        }
-
-        public Node replace(Node node) {
-            setID(node.getID());
-            setMale(node.isMale());
-            setHeight(node.getHeight());
-
-            // node.setParent(getParent());
-            // node.setLeft(getLeft());
-            // node.setRight(getRight());
-
-            return this;
-        }
-
-        @Override
-        public int compareTo(Node o) {
-            if(getHeight() < o.getHeight())
-                return -1;
-            else if(getHeight() == o.getHeight()) {
-                if(isMale() == o.isMale())
-                    return 0;
-                else if(isMale())
-                    return -1;
-                else
-                    return 1;
-            } else {
-                return 1;
-            }
-        }
-
-        public Node getLeft() {
-            return left;
-        }
-
-        public void setLeft(Node left) {
-            if(left != null)
-                left.setParent(this);
-
-            this.left = left;
-        }
-
-        public Node getRight() {
-            return right;
-        }
-
-        public void setRight(Node right) {
-            if(right != null)
-                right.setParent(this);
-
-            this.right = right;
-        }
-
-        public Node getParent() {
-            return parent;
-        }
-
-        public void setParent(Node parent) {
-            this.parent = parent;
-        }
-
-        @Override
-        public String toString() {
-            return "Node{" +
-                    "ID=" + getID() +
-                    ", height=" + getHeight() +
-                    ", male=" + isMale() +
-                    ", left=" + left +
-                    ", right=" + right +
-                    "}";
-        }
     }
 }
 

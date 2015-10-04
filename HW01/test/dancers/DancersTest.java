@@ -55,12 +55,12 @@ public class DancersTest {
     public void testAdd() throws Exception {
         Dancers tree = new Dancers();
 
-        Dancers.Node node1 = new Dancers.Node(1, true, 160);
-        Dancers.Node node2 = new Dancers.Node(2, true, 165);
-        Dancers.Node node3 = new Dancers.Node(3, true, 165);
-        Dancers.Node node4 = new Dancers.Node(4, true, 163);
-        Dancers.Node node5 = new Dancers.Node(5, false, 163);
-        Dancers.Node node6 = new Dancers.Node(6, false, 170);
+        Dancer node1 = new Dancer(1, true, 160);
+        Dancer node2 = new Dancer(2, true, 165);
+        Dancer node3 = new Dancer(3, true, 165);
+        Dancer node4 = new Dancer(4, true, 163);
+        Dancer node5 = new Dancer(5, false, 163);
+        Dancer node6 = new Dancer(6, false, 170);
 
         tree.add(node1);
         tree.add(node2);
@@ -69,12 +69,12 @@ public class DancersTest {
         tree.add(node5);
         tree.add(node6);
 
-        Dancers.Node expectedRootNode = new Dancers.Node(1, true, 160);
-        expectedRootNode.setRight(new Dancers.Node(2, true, 165));
-        expectedRootNode.getRight().setRight(new Dancers.Node(3, true, 165));
-        expectedRootNode.getRight().setLeft(new Dancers.Node(4, true, 163));
-        expectedRootNode.getRight().getLeft().setRight(new Dancers.Node(5, false, 163));
-        expectedRootNode.getRight().getRight().setRight(new Dancers.Node(6, false, 170));
+        Dancer expectedRootNode = new Dancer(1, true, 160);
+        expectedRootNode.setRight(new Dancer(2, true, 165));
+        expectedRootNode.getRight().setRight(new Dancer(3, true, 165));
+        expectedRootNode.getRight().setLeft(new Dancer(4, true, 163));
+        expectedRootNode.getRight().getLeft().setRight(new Dancer(5, false, 163));
+        expectedRootNode.getRight().getRight().setRight(new Dancer(6, false, 170));
 
         assertEquals(expectedRootNode.toString(), tree.getRoot().toString());
 
@@ -96,10 +96,10 @@ public class DancersTest {
 
     @Test
     public void testReplace() throws Exception {
-        Dancers.Node original = new Dancers.Node(0, false, 1);
-        Dancers.Node parent = new Dancers.Node(10, true, 20);
-        Dancers.Node child = new Dancers.Node(20, true, 30);
-        Dancers.Node replacement = new Dancers.Node(2, true, 3);
+        Dancer original = new Dancer(0, false, 1);
+        Dancer parent = new Dancer(10, true, 20);
+        Dancer child = new Dancer(20, true, 30);
+        Dancer replacement = new Dancer(2, true, 3);
 
         original.setParent(parent);
         original.setLeft(child);
@@ -114,12 +114,12 @@ public class DancersTest {
     public void testReplaceSubtree() throws Exception {
         Dancers tree = new Dancers();
 
-        Dancers.Node node1 = new Dancers.Node(1, true, 160);
-        Dancers.Node node2 = new Dancers.Node(2, true, 165);
-        Dancers.Node node3 = new Dancers.Node(3, true, 165);
-        Dancers.Node node4 = new Dancers.Node(4, true, 163);
-        Dancers.Node node5 = new Dancers.Node(5, false, 163);
-        Dancers.Node node6 = new Dancers.Node(6, false, 170);
+        Dancer node1 = new Dancer(1, true, 160);
+        Dancer node2 = new Dancer(2, true, 165);
+        Dancer node3 = new Dancer(3, true, 165);
+        Dancer node4 = new Dancer(4, true, 163);
+        Dancer node5 = new Dancer(5, false, 163);
+        Dancer node6 = new Dancer(6, false, 170);
 
         tree.add(node1);
         tree.add(node2);
@@ -130,18 +130,18 @@ public class DancersTest {
 
         tree.replaceSubtree(node2, node4);
 
-        assertEquals(node1.getRight(), node4);
+        assertEquals(node4, node1.getRight());
     }
 
     @Test public void testDelete() throws Exception {
         Dancers tree = new Dancers();
 
-        Dancers.Node node1 = new Dancers.Node(1, true, 160);
-        Dancers.Node node2 = new Dancers.Node(2, true, 165);
-        Dancers.Node node3 = new Dancers.Node(3, true, 165);
-        Dancers.Node node4 = new Dancers.Node(4, true, 163);
-        Dancers.Node node5 = new Dancers.Node(5, false, 163);
-        Dancers.Node node6 = new Dancers.Node(6, false, 170);
+        Dancer node1 = new Dancer(1, true, 160);
+        Dancer node2 = new Dancer(2, true, 165);
+        Dancer node3 = new Dancer(3, true, 165);
+        Dancer node4 = new Dancer(4, true, 163);
+        Dancer node5 = new Dancer(5, false, 163);
+        Dancer node6 = new Dancer(6, false, 170);
 
         tree.add(node1);
         tree.add(node2);
@@ -167,10 +167,10 @@ public class DancersTest {
     public void testDeleteRoot() throws Exception {
         Dancers tree = new Dancers();
 
-        Dancers.Node node1 = new Dancers.Node(1, true, 2);
-        Dancers.Node node2 = new Dancers.Node(1, true, 1);
-        Dancers.Node node3 = new Dancers.Node(1, true, 3);
-        Dancers.Node node4 = new Dancers.Node(1, true, 4);
+        Dancer node1 = new Dancer(1, true, 2);
+        Dancer node2 = new Dancer(1, true, 1);
+        Dancer node3 = new Dancer(1, true, 3);
+        Dancer node4 = new Dancer(1, true, 4);
 
         tree.add(node1);
         tree.add(node2);
