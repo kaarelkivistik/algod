@@ -77,6 +77,19 @@ public class Dancers implements IDancers {
 
         return parent;
     }
+    public Dancer predecessor(Dancer node) {
+        if(node.getLeft() != null)
+            return minimum(node.getLeft());
+
+        Dancer parent = node.getParent();
+
+        while(parent != null && node == parent.getLeft()) {
+            node = parent;
+            parent = parent.getParent();
+        }
+
+        return parent;
+    }
 
     public void delete(Dancer node) {
         if(node.getLeft() == null && node.getRight() == null) {
@@ -132,13 +145,54 @@ public class Dancers implements IDancers {
     }
 
     @Override
-    public AbstractMap.SimpleEntry<IDancer, IDancer> findPartnerFor(IDancer d) throws IllegalArgumentException {
+    public AbstractMap.SimpleEntry<IDancer, IDancer> findPartnerFor(IDancer dancer) throws IllegalArgumentException {
+        add((Dancer) dancer);
+
+
+        if(!dancer.isMale()) {
+            Dancer successor = successor((Dancer) dancer);
+
+            while (true) {
+                if(successor == null || successor.isMale())
+                    break;
+
+                successor = successor(successor);
+            }
+
+            if(successor != null) {
+                delete((Dancer) dancer);
+                delete((Dancer) successor);
+                
+                return new AbstractMap.SimpleEntry<>(dancer, successor);
+            }
+        } else {
+            Dancer predecessor = predecessor((Dancer) dancer);
+
+            while (true) {
+                if(predecessor == null || (!predecessor.isMale() && (predecessor.getHeight() < dancer.getHeight())))
+                    break;
+
+                predecessor = predecessor(predecessor);
+            }
+
+            if(predecessor != null) {
+                delete((Dancer) dancer);
+                delete((Dancer) predecessor);
+
+                return new AbstractMap.SimpleEntry<>(dancer, predecessor);
+            }
+        }
+
         return null;
     }
 
     @Override
     public List<IDancer> returnWaitingList() {
-        return null;
+        ArrayList<IDancer> list = new ArrayList<>();
+
+        traverse(list::add);
+
+        return list;
     }
 }
 

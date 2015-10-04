@@ -1,7 +1,5 @@
 package dancers;
 
-import dancers.Dancer;
-import dancers.Dancers;
 import org.junit.Test;
 
 import java.util.AbstractMap;
@@ -27,6 +25,14 @@ public class DancersTest {
         Dancer female2 = new Dancer(5, false, 177);
         Dancer female3 = new Dancer(6, false, 162);
 
+        Dancer male4 = new Dancer(7, true, 195);
+        Dancer male5 = new Dancer(8, true, 190);
+        Dancer male6 = new Dancer(9, true, 170);
+
+        Dancer female4 = new Dancer(10, false, 155);
+        Dancer female5 = new Dancer(11, false, 156);
+        Dancer female6 = new Dancer(12, false, 157);
+
         assertNull("there should be no match for male1", dancers.findPartnerFor(male1));
         assertThat("list should contain male1", dancers.returnWaitingList(), is(Arrays.asList(male1)));
 
@@ -44,11 +50,25 @@ public class DancersTest {
         assertThat("there should be a match for female3 (male2)",
                 dancers.findPartnerFor(female3),
                 is(new AbstractMap.SimpleEntry<>(female3, male2)));
-    }
 
-    @Test
-    public void testReturnWaitingList() throws Exception {
+        assertEquals("list should be empty", dancers.returnWaitingList().size(), 0);
 
+        assertNull("there should be no match for female4", dancers.findPartnerFor(female4));
+        assertNull("there should be no match for female5", dancers.findPartnerFor(female5));
+        assertNull("there should be no match for female6", dancers.findPartnerFor(female6));
+
+        assertThat("list should contain ...", dancers.returnWaitingList(),
+                is(Arrays.asList(female4, female5, female6)));
+
+        assertThat("there should be a match for male4 (female6)",
+                dancers.findPartnerFor(male4),
+                is(new AbstractMap.SimpleEntry<>(male4, female6)));
+        assertThat("there should be a match for male5 (female5)",
+                dancers.findPartnerFor(male5),
+                is(new AbstractMap.SimpleEntry<>(male5, female5)));
+        assertThat("there should be a match for male6 (female4)",
+                dancers.findPartnerFor(male6),
+                is(new AbstractMap.SimpleEntry<>(male6, female4)));
     }
 
     @Test
