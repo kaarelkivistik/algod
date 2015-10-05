@@ -1,6 +1,6 @@
 package dancers;
 
-import java.util.AbstractMap;
+import java.util.AbstractMap.SimpleEntry;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
@@ -164,7 +164,7 @@ public class Dancers implements IDancers {
     }
 
     @Override
-    public AbstractMap.SimpleEntry<IDancer, IDancer> findPartnerFor(IDancer iDancer) throws IllegalArgumentException {
+    public SimpleEntry<IDancer, IDancer> findPartnerFor(IDancer iDancer) throws IllegalArgumentException {
         if(iDancer == null)
             throw new IllegalArgumentException();
 
@@ -177,7 +177,7 @@ public class Dancers implements IDancers {
         if(match == null)
             return null;
         else {
-            AbstractMap.SimpleEntry<IDancer, IDancer> couple = new AbstractMap.SimpleEntry<>(
+            SimpleEntry<IDancer, IDancer> couple = new SimpleEntry<>(
                     node.getDancer(),
                     match.getDancer()
             );
