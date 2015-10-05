@@ -216,4 +216,6 @@ public class DancersTest {
         assertEquals(node3, tree.getRoot());
         assertEquals(node4, tree.getRoot().getRight());
     }
+
+
 }

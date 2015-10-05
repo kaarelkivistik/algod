@@ -43,4 +43,17 @@ public class Dancer implements IDancer {
                 ", height=" + height +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Dancer dancer = (Dancer) o;
+
+        if (getID() != dancer.getID()) return false;
+        if (isMale() != dancer.isMale()) return false;
+        return getHeight() == dancer.getHeight();
+
+    }
 }

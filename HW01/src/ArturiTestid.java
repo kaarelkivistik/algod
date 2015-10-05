@@ -10,7 +10,7 @@ import java.util.AbstractMap;
 /**
  * Created by artur on 29.09.15.
  */
-public class DancersTest extends TestCase {
+public class ArturiTestid extends TestCase {
 
 
     public void testBeginListEmpty() throws Exception {
@@ -295,5 +295,15 @@ public class DancersTest extends TestCase {
         Dancer dancer = new Dancer(1, 180, true);
 
         assertNull(dancers.findPartnerFor(dancer));
+    }
+
+    public void testNoPairs() {
+        dancers.Dancers studentDancers = new dancers.Dancers();
+        for(int h=180; h>=170; h--) {
+            assertTrue(studentDancers.findPartnerFor(new Dancer(h, h,true)) == null);
+        }
+        for(int h=190; h>=180; h-=2) {
+            assertTrue(studentDancers.findPartnerFor(new Dancer(h, h,false)) == null);
+        }
     }
 }
