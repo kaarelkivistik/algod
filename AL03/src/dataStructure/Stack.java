@@ -7,7 +7,7 @@ public class Stack {
     private Object[] stack = new Object[10];
 
     public void push(Object object) {
-        if(index == stack.length)
+        if(index == stack.length - 1)
             increaseStack();
 
         stack[++index] = object;
@@ -29,6 +29,8 @@ public class Stack {
 
         for(int i = 0; i < stack.length; i++)
             newStack[i] = stack[i];
+
+        stack = newStack;
     }
 }
 

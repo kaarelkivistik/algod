@@ -1,11 +1,46 @@
 package dataStructure;
 
+import java.util.ArrayList;
+
 import static org.junit.Assert.*;
 
 /**
  * Created by kaarel on 05/10/15.
  */
 public class DataStructureTest {
+
+    static class Foo {
+        private int number;
+
+        public Foo(int number) {
+            this.number = number;
+        }
+
+        public int getNumber() {
+            return number;
+        }
+
+        public void setNumber(int number) {
+            this.number = number;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+
+            Foo foo = (Foo) o;
+
+            return number == foo.number;
+        }
+
+        @Override
+        public String toString() {
+            return "Foo{" +
+                    "number=" + number +
+                    '}';
+        }
+    }
 
     @org.junit.Test
     public void testStack() throws Exception {
@@ -33,6 +68,12 @@ public class DataStructureTest {
         assertNull(stack.pop());
 
         assertTrue(stack.isEmpty());
+
+        for(int i = 0; i <= 10000; i++)
+            stack.push(new Foo(i));
+
+        for(int i = 10000; i >= 0; i--)
+            assertEquals(new Foo(i), stack.pop());
     }
 
     @org.junit.Test
