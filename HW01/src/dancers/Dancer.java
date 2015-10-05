@@ -14,6 +14,12 @@ public class Dancer implements IDancer {
         this.height = height;
     }
 
+    public Dancer(int ID, int height, boolean male) {
+        this.ID = ID;
+        this.height = height;
+        this.male = male;
+    }
+
     @Override
     public int getID() {
         return ID;

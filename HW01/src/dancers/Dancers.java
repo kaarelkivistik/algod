@@ -165,6 +165,9 @@ public class Dancers implements IDancers {
 
     @Override
     public AbstractMap.SimpleEntry<IDancer, IDancer> findPartnerFor(IDancer iDancer) throws IllegalArgumentException {
+        if(iDancer == null)
+            throw new IllegalArgumentException();
+        
         Node node = new Node((Dancer) iDancer);
 
         add(node);

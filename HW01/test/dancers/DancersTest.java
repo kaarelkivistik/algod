@@ -32,11 +32,30 @@ public class DancersTest {
         Dancer female6 = new Dancer(12, false, 195);
 
         assertNull(dancers.findPartnerFor(male1));
+
+        System.out.println(dancers.returnWaitingList());
+
         assertNull(dancers.findPartnerFor(male2));
+
+        System.out.println(dancers.returnWaitingList());
+
         assertNull(dancers.findPartnerFor(male3));
+
+        System.out.println(dancers.returnWaitingList());
+
         assertNull(dancers.findPartnerFor(male4));
+
+        System.out.println(dancers.returnWaitingList());
+
         assertNull(dancers.findPartnerFor(male5));
+
+        System.out.println(dancers.returnWaitingList());
+
         assertNull(dancers.findPartnerFor(male6));
+
+        System.out.println(dancers.returnWaitingList());
+
+        assertEquals(6, dancers.returnWaitingList().size());
 
         assertEquals(
                 new AbstractMap.SimpleEntry<>(female1, male2),
@@ -66,6 +85,8 @@ public class DancersTest {
                 new AbstractMap.SimpleEntry<>(female1, male4),
                 dancers.findPartnerFor(female1)
         );
+
+        assertEquals(1, dancers.returnWaitingList().size());
     }
 
     @Test
@@ -103,8 +124,6 @@ public class DancersTest {
         expectedRootNode.getRight().setLeft(new Node(4, true, 163));
         expectedRootNode.getRight().getLeft().setRight(new Node(5, false, 163));
         expectedRootNode.getRight().getRight().setRight(new Node(6, false, 170));
-
-        System.out.println(tree.getRoot());
 
         assertEquals(expectedRootNode.toString(), tree.getRoot().toString());
 
