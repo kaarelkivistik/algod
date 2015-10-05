@@ -66,66 +66,29 @@ public class DancersTest {
                 new AbstractMap.SimpleEntry<>(female1, male4),
                 dancers.findPartnerFor(female1)
         );
-
-        /*assertNull("there should be no match for male1", dancers.findPartnerFor(male1));
-        assertThat("list should contain male1", dancers.returnWaitingList(), is(Arrays.asList(male1)));
-
-        assertThat("there should be a match for female1 (male1)",
-                dancers.findPartnerFor(female1),
-                is(new AbstractMap.SimpleEntry<>(female1, male1)));
-        assertEquals("list should be empty", dancers.returnWaitingList().size(), 0);
-
-        assertNull("there should be no match for male2", dancers.findPartnerFor(male2));
-        assertNull("there should be no match for male3", dancers.findPartnerFor(male3));
-
-        assertThat("there should be a match for female2 (male3)",
-                dancers.findPartnerFor(female2),
-                is(new AbstractMap.SimpleEntry<>(female2, male3)));
-        assertThat("there should be a match for female3 (male2)",
-                dancers.findPartnerFor(female3),
-                is(new AbstractMap.SimpleEntry<>(female3, male2)));
-
-        assertEquals("list should be empty", dancers.returnWaitingList().size(), 0);
-
-        assertNull("there should be no match for female4", dancers.findPartnerFor(female4));
-        assertNull("there should be no match for female5", dancers.findPartnerFor(female5));
-        assertNull("there should be no match for female6", dancers.findPartnerFor(female6));
-
-        assertThat("list should contain ...", dancers.returnWaitingList(),
-                is(Arrays.asList(female4, female5, female6)));
-
-        assertThat("there should be a match for male4 (female6)",
-                dancers.findPartnerFor(male4),
-                is(new AbstractMap.SimpleEntry<>(male4, female6)));
-        assertThat("there should be a match for male5 (female5)",
-                dancers.findPartnerFor(male5),
-                is(new AbstractMap.SimpleEntry<>(male5, female5)));
-        assertThat("there should be a match for male6 (female4)",
-                dancers.findPartnerFor(male6),
-                is(new AbstractMap.SimpleEntry<>(male6, female4)));*/
     }
 
     @Test
     public void testSimplePair() throws Exception {
-        /* Dancers tree = new Dancers();
+        Dancers tree = new Dancers();
 
         Dancer male = new Dancer(1, true, 180);
         Dancer female = new Dancer(2, false, 160);
 
         assertNull(tree.findPartnerFor(male));
-        assertEquals(new AbstractMap.SimpleEntry<>(female, male), tree.findPartnerFor(female)); */
+        assertEquals(new AbstractMap.SimpleEntry<>(female, male), tree.findPartnerFor(female));
     }
 
     @Test
     public void testAdd() throws Exception {
         Dancers tree = new Dancers();
 
-        Node node1 = new Node(true, 160);
-        Node node2 = new Node(true, 165);
-        Node node3 = new Node(true, 165);
-        Node node4 = new Node(true, 163);
-        Node node5 = new Node(false, 163);
-        Node node6 = new Node(false, 170);
+        Node node1 = new Node(1, true, 160);
+        Node node2 = new Node(2, true, 165);
+        Node node3 = new Node(3, true, 165);
+        Node node4 = new Node(4, true, 163);
+        Node node5 = new Node(5, false, 163);
+        Node node6 = new Node(6, false, 170);
 
         tree.add(node1);
         tree.add(node2);
@@ -134,12 +97,14 @@ public class DancersTest {
         tree.add(node5);
         tree.add(node6);
 
-        Node expectedRootNode = new Node(true, 160);
-        expectedRootNode.setRight(new Node(true, 165));
-        expectedRootNode.getRight().setRight(new Node(true, 165));
-        expectedRootNode.getRight().setLeft(new Node(true, 163));
-        expectedRootNode.getRight().getLeft().setRight(new Node(false, 163));
-        expectedRootNode.getRight().getRight().setRight(new Node(false, 170));
+        Node expectedRootNode = new Node(1, true, 160);
+        expectedRootNode.setRight(new Node(2, true, 165));
+        expectedRootNode.getRight().setRight(new Node(3, true, 165));
+        expectedRootNode.getRight().setLeft(new Node(4, true, 163));
+        expectedRootNode.getRight().getLeft().setRight(new Node(5, false, 163));
+        expectedRootNode.getRight().getRight().setRight(new Node(6, false, 170));
+
+        System.out.println(tree.getRoot());
 
         assertEquals(expectedRootNode.toString(), tree.getRoot().toString());
 
@@ -159,31 +124,16 @@ public class DancersTest {
                 )));
     }
 
-    public void testReplace() throws Exception {
-        Node original = new Node(false, 1);
-        Node parent = new Node(true, 20);
-        Node child = new Node(true, 30);
-        Node replacement = new Node(true, 3);
-
-        original.setParent(parent);
-        original.setLeft(child);
-        original.replace(replacement);
-
-        assertEquals(original, replacement);
-        assertEquals(original.getParent(), parent);
-        assertEquals(original.getLeft(), child);
-    }
-
     @Test
     public void testReplaceSubtree() throws Exception {
         Dancers tree = new Dancers();
 
-        Node node1 = new Node(true, 160);
-        Node node2 = new Node(true, 165);
-        Node node3 = new Node(true, 165);
-        Node node4 = new Node(true, 163);
-        Node node5 = new Node(false, 163);
-        Node node6 = new Node(false, 170);
+        Node node1 = new Node(1, true, 160);
+        Node node2 = new Node(2, true, 165);
+        Node node3 = new Node(3, true, 165);
+        Node node4 = new Node(4, true, 163);
+        Node node5 = new Node(5, false, 163);
+        Node node6 = new Node(6, false, 170);
 
         tree.add(node1);
         tree.add(node2);
@@ -200,12 +150,12 @@ public class DancersTest {
     @Test public void testDelete() throws Exception {
         Dancers tree = new Dancers();
 
-        Node node1 = new Node(true, 160);
-        Node node2 = new Node(true, 165);
-        Node node3 = new Node(true, 165);
-        Node node4 = new Node(true, 163);
-        Node node5 = new Node(false, 163);
-        Node node6 = new Node(false, 170);
+        Node node1 = new Node(1, true, 160);
+        Node node2 = new Node(2, true, 165);
+        Node node3 = new Node(3, true, 165);
+        Node node4 = new Node(4, true, 163);
+        Node node5 = new Node(5, false, 163);
+        Node node6 = new Node(6, false, 170);
 
         tree.add(node1);
         tree.add(node2);
@@ -231,10 +181,10 @@ public class DancersTest {
     public void testDeleteRoot() throws Exception {
         Dancers tree = new Dancers();
 
-        Node node1 = new Node(true, 2);
-        Node node2 = new Node(true, 1);
-        Node node3 = new Node(true, 3);
-        Node node4 = new Node(true, 4);
+        Node node1 = new Node(1, true, 2);
+        Node node2 = new Node(2, true, 1);
+        Node node3 = new Node(3, true, 3);
+        Node node4 = new Node(4, true, 4);
 
         tree.add(node1);
         tree.add(node2);

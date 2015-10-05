@@ -5,42 +5,23 @@ package dancers;
  */
 public class Node implements Comparable<Node> {
 
-    private boolean male;
-    private int height;
     private Node left, right, parent;
     private Dancer dancer;
 
-    public Node() {
-    }
-
-    public Node(boolean male, int height) {
-        this.male = male;
-        this.height = height;
-    }
-
     public Node(int ID, boolean male, int height) {
-        this(male, height);
         this.dancer = new Dancer(ID, male, height);
     }
 
     public Node(Dancer dancer) {
-        this(dancer.isMale(), dancer.getHeight());
         this.dancer = dancer;
     }
 
     public boolean isMale() {
-        return male;
+        return dancer.isMale();
     }
 
-    public void setMale(boolean male) {
-        this.male = male;
-    }
     public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
+        return dancer.getHeight();
     }
 
     public Dancer getDancer() {
@@ -82,8 +63,6 @@ public class Node implements Comparable<Node> {
     }
 
     public Node replace(Node replacement) {
-        setMale(replacement.isMale());
-        setHeight(replacement.getHeight());
         setDancer(replacement.getDancer());
 
         return this;
