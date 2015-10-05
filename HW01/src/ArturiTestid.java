@@ -12,6 +12,39 @@ import java.util.AbstractMap;
  */
 public class ArturiTestid extends TestCase {
 
+    private static class Dancer implements IDancer {
+
+        private int ID;
+        private boolean male;
+        private int height;
+
+        public Dancer(int height, boolean male) {
+            this.height = height;
+            this.male = male;
+        }
+
+        public Dancer(int ID, int height, boolean male) {
+            this.ID = ID;
+            this.height = height;
+            this.male = male;
+        }
+
+        @Override
+        public int getID() {
+            return ID;
+        }
+
+        @Override
+        public boolean isMale() {
+            return male;
+        }
+
+        @Override
+        public int getHeight() {
+            return height;
+        }
+    }
+
 
     public void testBeginListEmpty() throws Exception {
         Dancers dancers = new Dancers();

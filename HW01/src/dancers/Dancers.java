@@ -168,7 +168,7 @@ public class Dancers implements IDancers {
         if(iDancer == null)
             throw new IllegalArgumentException();
 
-        Node node = new Node((Dancer) iDancer);
+        Node node = new Node(iDancer);
 
         add(node);
 

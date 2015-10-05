@@ -6,13 +6,13 @@ package dancers;
 public class Node implements Comparable<Node> {
 
     private Node left, right, parent;
-    private Dancer dancer;
+    private IDancer dancer;
 
     public Node(int ID, boolean male, int height) {
         this.dancer = new Dancer(ID, male, height);
     }
 
-    public Node(Dancer dancer) {
+    public Node(IDancer dancer) {
         this.dancer = dancer;
     }
 
@@ -24,11 +24,11 @@ public class Node implements Comparable<Node> {
         return dancer.getHeight();
     }
 
-    public Dancer getDancer() {
+    public IDancer getDancer() {
         return dancer;
     }
 
-    public void setDancer(Dancer dancer) {
+    public void setDancer(IDancer dancer) {
         this.dancer = dancer;
     }
 
