@@ -1,9 +1,5 @@
 package dancers;
 
-import dancers.Dancer;
-import dancers.IDancer;
-import dancers.IDancers;
-
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +9,13 @@ import java.util.function.Consumer;
  * Created by kaarel on 04/10/15.
  */
 public class Dancers implements IDancers {
-    private Dancer root;
+    private Node root;
 
-    public Dancer getRoot() {
+    public Node getRoot() {
         return root;
     }
 
-    public Dancer add(Dancer node) {
+    public Node add(Node node) {
         node.setLeft(null);
         node.setRight(null);
         node.setParent(null);
@@ -32,7 +28,7 @@ public class Dancers implements IDancers {
         return node;
     }
 
-    public Dancer add(Dancer root, Dancer node) {
+    public Node add(Node root, Node node) {
         int comparison = node.compareTo(root);
 
         if(comparison < 0) {
@@ -50,25 +46,25 @@ public class Dancers implements IDancers {
         return node;
     }
 
-    public Dancer minimum(Dancer node) {
+    public Node minimum(Node node) {
         while(node.getLeft() != null)
             node = node.getLeft();
 
         return node;
     }
 
-    public Dancer maximum(Dancer node) {
+    public Node maximum(Node node) {
         while(node.getRight() != null)
             node = node.getRight();
 
         return node;
     }
 
-    public Dancer successor(Dancer node) {
+    public Node successor(Node node) {
         if(node.getRight() != null)
             return minimum(node.getRight());
 
-        Dancer parent = node.getParent();
+        Node parent = node.getParent();
 
         while(parent != null && node == parent.getRight()) {
             node = parent;
@@ -78,8 +74,8 @@ public class Dancers implements IDancers {
         return parent;
     }
 
-    public Dancer maleSuccessor(Dancer node) {
-        Dancer successor = successor(node);
+    public Node maleSuccessor(Node node) {
+        Node successor = successor(node);
 
         //while(successor != null && !successor.isMale())
         //    successor = successor(successor);
@@ -94,11 +90,11 @@ public class Dancers implements IDancers {
         return successor;
     }
 
-    public Dancer predecessor(Dancer node) {
+    public Node predecessor(Node node) {
         if(node.getLeft() != null)
             return maximum(node.getLeft());
 
-        Dancer parent = node.getParent();
+        Node parent = node.getParent();
 
         while(parent != null && node == parent.getLeft()) {
             node = parent;
@@ -108,8 +104,8 @@ public class Dancers implements IDancers {
         return parent;
     }
 
-    public Dancer femalePredecessor(Dancer node) {
-        Dancer predecessor = predecessor(node);
+    public Node femalePredecessor(Node node) {
+        Node predecessor = predecessor(node);
 
         while(predecessor != null && (predecessor.isMale() || predecessor.getHeight() > node.getHeight()))
             predecessor = predecessor(predecessor);
@@ -117,7 +113,7 @@ public class Dancers implements IDancers {
         return predecessor;
     }
 
-    public void delete(Dancer node) {
+    public void delete(Node node) {
         if(node.getLeft() == null && node.getRight() == null) {
             replaceSubtree(node, null);
         } else if(node.getLeft() == null) {
@@ -125,15 +121,15 @@ public class Dancers implements IDancers {
         } else if(node.getRight() == null) {
             replaceSubtree(node, node.getLeft());
         } else {
-            Dancer successor = successor(node);
+            Node successor = successor(node);
 
             node.replace(successor);
             replaceSubtree(successor, successor.getRight());
         }
     }
 
-    public void replaceSubtree(Dancer node, Dancer replacement) {
-        Dancer parent = node.getParent();
+    public void replaceSubtree(Node node, Node replacement) {
+        Node parent = node.getParent();
 
         if(parent == null)
             root = replacement;
@@ -146,11 +142,11 @@ public class Dancers implements IDancers {
             replacement.setParent(parent);
     }
 
-    public void traverse(Consumer<Dancer> consumer) {
+    public void traverse(Consumer<Node> consumer) {
         traverse(root, consumer);
     }
 
-    public void traverse(Dancer node, Consumer<Dancer> consumer) {
+    public void traverse(Node node, Consumer<Node> consumer) {
         if(node == null)
             return;
 
@@ -159,8 +155,8 @@ public class Dancers implements IDancers {
         traverse(node.getRight(), consumer);
     }
 
-    public List<Dancer> toList() {
-        ArrayList<Dancer> list = new ArrayList<>();
+    public List<Node> toList() {
+        ArrayList<Node> list = new ArrayList<>();
 
         traverse(list::add);
 
@@ -169,21 +165,21 @@ public class Dancers implements IDancers {
 
     @Override
     public AbstractMap.SimpleEntry<IDancer, IDancer> findPartnerFor(IDancer iDancer) throws IllegalArgumentException {
-        Dancer dancer = (Dancer) iDancer;
+        Node node = new Node((Dancer) iDancer);
 
-        add(dancer);
+        add(node);
 
-        Dancer match = iDancer.isMale() ? femalePredecessor(dancer) : maleSuccessor(dancer);
+        Node match = iDancer.isMale() ? femalePredecessor(node) : maleSuccessor(node);
 
         if(match == null)
             return null;
         else {
             AbstractMap.SimpleEntry<IDancer, IDancer> couple = new AbstractMap.SimpleEntry<>(
-                    new Dancer().replace(dancer),
-                    new Dancer().replace(match)
+                    node.getDancer(),
+                    match.getDancer()
             );
 
-            delete(dancer);
+            delete(node);
             delete(match);
 
             return couple;
@@ -194,7 +190,7 @@ public class Dancers implements IDancers {
     public List<IDancer> returnWaitingList() {
         ArrayList<IDancer> list = new ArrayList<>();
 
-        traverse(list::add);
+        traverse(node -> list.add(node.getDancer()));
 
         return list;
     }
