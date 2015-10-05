@@ -8,6 +8,12 @@ public class Dancer implements IDancer {
     private boolean male;
     private int height;
 
+    public Dancer(int height, boolean male) {
+        this.ID = height;
+        this.height = height;
+        this.male = male;
+    }
+
     public Dancer(int ID, boolean male, int height) {
         this.ID = ID;
         this.male = male;
