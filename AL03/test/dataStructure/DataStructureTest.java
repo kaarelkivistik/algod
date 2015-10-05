@@ -98,4 +98,23 @@ public class DataStructureTest {
 
         assertTrue(queue.isEmpty());
     }
+
+    @org.junit.Test
+    public void testDequeue() throws Exception {
+        Dequeue dq = new Dequeue();
+
+        dq.pushFirst(new Foo(1));
+        dq.pushFirst(new Foo(2));
+        dq.pushFirst(new Foo(3));
+
+        assertEquals(new Foo(1), dq.popLast());
+        assertEquals(new Foo(2), dq.popLast());
+        assertEquals(new Foo(3), dq.popLast());
+
+        dq.pushLast(new Foo(10));
+        dq.pushFirst(new Foo(20));
+
+        assertEquals(new Foo(20), dq.popFirst());
+        assertEquals(new Foo(10), dq.popFirst());
+    }
 }

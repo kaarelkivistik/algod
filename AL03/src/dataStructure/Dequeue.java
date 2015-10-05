@@ -1,23 +1,34 @@
 package dataStructure;
 
 public class Dequeue {
-    public void pushFirst(Object object) {
+    private Stack back = new Stack();
+    private Stack front = new Stack();
 
+    public void pushFirst(Object object) {
+        front.push(object);
     }
 
     public void pushLast(Object object) {
-
+        back.push(object);
     }
 
     public Object popFirst() {
-        return null;
+        if(front.isEmpty())
+            while(!back.isEmpty())
+                front.push(back.pop());
+
+        return front.pop();
     }
 
     public Object popLast() {
-        return null;
+        if(back.isEmpty())
+            while(!front.isEmpty())
+                back.push(front.pop());
+
+        return back.pop();
     }
 
     public boolean isEmpty() {
-        return true;
+        return front.isEmpty() && back.isEmpty();
     }
 }
