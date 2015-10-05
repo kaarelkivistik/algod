@@ -20,6 +20,10 @@ public class Dancers implements IDancers {
     }
 
     public Dancer add(Dancer node) {
+        node.setLeft(null);
+        node.setRight(null);
+        node.setParent(null);
+
         if(root == null)
             root = node;
         else
@@ -73,6 +77,23 @@ public class Dancers implements IDancers {
 
         return parent;
     }
+
+    public Dancer maleSuccessor(Dancer node) {
+        Dancer successor = successor(node);
+
+        //while(successor != null && !successor.isMale())
+        //    successor = successor(successor);
+
+        while(true) {
+            if(successor == null || successor.isMale())
+                break;
+
+            successor = successor(successor);
+        }
+
+        return successor;
+    }
+
     public Dancer predecessor(Dancer node) {
         if(node.getLeft() != null)
             return maximum(node.getLeft());
@@ -85,6 +106,15 @@ public class Dancers implements IDancers {
         }
 
         return parent;
+    }
+
+    public Dancer femalePredecessor(Dancer node) {
+        Dancer predecessor = predecessor(node);
+
+        while(predecessor != null && (predecessor.isMale() || predecessor.getHeight() > node.getHeight()))
+            predecessor = predecessor(predecessor);
+
+        return predecessor;
     }
 
     public void delete(Dancer node) {
@@ -138,45 +168,26 @@ public class Dancers implements IDancers {
     }
 
     @Override
-    public AbstractMap.SimpleEntry<IDancer, IDancer> findPartnerFor(IDancer dancer) throws IllegalArgumentException {
-        add((Dancer) dancer);
+    public AbstractMap.SimpleEntry<IDancer, IDancer> findPartnerFor(IDancer iDancer) throws IllegalArgumentException {
+        Dancer dancer = (Dancer) iDancer;
 
+        add(dancer);
 
-        if(!dancer.isMale()) {
-            Dancer successor = successor((Dancer) dancer);
+        Dancer match = iDancer.isMale() ? femalePredecessor(dancer) : maleSuccessor(dancer);
 
-            while (true) {
-                if(successor == null || successor.isMale())
-                    break;
+        if(match == null)
+            return null;
+        else {
+            AbstractMap.SimpleEntry<IDancer, IDancer> couple = new AbstractMap.SimpleEntry<>(
+                    new Dancer().replace(dancer),
+                    new Dancer().replace(match)
+            );
 
-                successor = successor(successor);
-            }
+            delete(dancer);
+            delete(match);
 
-            if(successor != null) {
-                delete((Dancer) dancer);
-                delete((Dancer) successor);
-
-                return new AbstractMap.SimpleEntry<>(dancer, successor);
-            }
-        } else {
-            Dancer predecessor = predecessor((Dancer) dancer);
-
-            while (true) {
-                if(predecessor == null || (!predecessor.isMale() && (predecessor.getHeight() < dancer.getHeight())))
-                    break;
-
-                predecessor = predecessor(predecessor);
-            }
-
-            if(predecessor != null) {
-                delete((Dancer) dancer);
-                delete((Dancer) predecessor);
-
-                return new AbstractMap.SimpleEntry<>(dancer, predecessor);
-            }
+            return couple;
         }
-
-        return null;
     }
 
     @Override

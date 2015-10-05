@@ -11,6 +11,9 @@ public class Dancer implements IDancer, Comparable<Dancer> {
 
     private Dancer left, right, parent;
 
+    public Dancer() {
+    }
+
     public Dancer(int ID, boolean male, int height) {
         this.ID = ID;
         this.male = male;

@@ -20,20 +20,54 @@ public class DancersTest {
         Dancer male1 = new Dancer(1, true, 190);
         Dancer male2 = new Dancer(2, true, 185);
         Dancer male3 = new Dancer(3, true, 178);
-
-        Dancer female1 = new Dancer(4, false, 180);
-        Dancer female2 = new Dancer(5, false, 177);
-        Dancer female3 = new Dancer(6, false, 162);
-
         Dancer male4 = new Dancer(7, true, 195);
         Dancer male5 = new Dancer(8, true, 190);
         Dancer male6 = new Dancer(9, true, 170);
 
+        Dancer female1 = new Dancer(4, false, 180);
+        Dancer female2 = new Dancer(5, false, 177);
+        Dancer female3 = new Dancer(6, false, 162);
         Dancer female4 = new Dancer(10, false, 155);
         Dancer female5 = new Dancer(11, false, 156);
-        Dancer female6 = new Dancer(12, false, 157);
+        Dancer female6 = new Dancer(12, false, 195);
 
-        assertNull("there should be no match for male1", dancers.findPartnerFor(male1));
+        assertNull(dancers.findPartnerFor(male1));
+        assertNull(dancers.findPartnerFor(male2));
+        assertNull(dancers.findPartnerFor(male3));
+        assertNull(dancers.findPartnerFor(male4));
+        assertNull(dancers.findPartnerFor(male5));
+        assertNull(dancers.findPartnerFor(male6));
+
+        assertEquals(
+                new AbstractMap.SimpleEntry<>(female1, male2),
+                dancers.findPartnerFor(female1)
+        );
+        assertEquals(
+                new AbstractMap.SimpleEntry<>(female2, male3),
+                dancers.findPartnerFor(female2)
+        );
+        assertEquals(
+                new AbstractMap.SimpleEntry<>(female3, male6),
+                dancers.findPartnerFor(female3)
+        );
+        assertEquals(
+                new AbstractMap.SimpleEntry<>(female4, male1),
+                dancers.findPartnerFor(female4)
+        );
+        assertEquals(
+                new AbstractMap.SimpleEntry<>(female5, male5),
+                dancers.findPartnerFor(female5)
+        );
+        assertNull(dancers.findPartnerFor(female6));
+
+        assertEquals(2, dancers.returnWaitingList().size());
+
+        assertEquals(
+                new AbstractMap.SimpleEntry<>(female1, male4),
+                dancers.findPartnerFor(female1)
+        );
+
+        /*assertNull("there should be no match for male1", dancers.findPartnerFor(male1));
         assertThat("list should contain male1", dancers.returnWaitingList(), is(Arrays.asList(male1)));
 
         assertThat("there should be a match for female1 (male1)",
@@ -68,7 +102,7 @@ public class DancersTest {
                 is(new AbstractMap.SimpleEntry<>(male5, female5)));
         assertThat("there should be a match for male6 (female4)",
                 dancers.findPartnerFor(male6),
-                is(new AbstractMap.SimpleEntry<>(male6, female4)));
+                is(new AbstractMap.SimpleEntry<>(male6, female4)));*/
     }
 
     @Test
