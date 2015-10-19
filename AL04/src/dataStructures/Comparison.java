@@ -8,7 +8,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class Comparison {
-    
+
     public static PriorityQueue<Integer> ascPriorityQueue(int n) {
         PriorityQueue<Integer> queue = new PriorityQueue<>(n);
 
@@ -68,10 +68,9 @@ public class Comparison {
 
         return hashtable;
     }
-    
-    public static List<String> dataStructureComparison(int n) {
+
+    public static ArrayList<SimpleEntry<String, Consumer<Integer>>> getListOfMethods() {
         ArrayList<SimpleEntry<String, Consumer<Integer>>> methods = new ArrayList<>();
-        ArrayList<SimpleEntry<Long, String>> results = new ArrayList<>();
 
         methods.add(new SimpleEntry<>("ascPriorityQueue", Comparison::ascPriorityQueue));
         methods.add(new SimpleEntry<>("randomPriorityQueue", Comparison::randomPriorityQueue));
@@ -79,6 +78,13 @@ public class Comparison {
         methods.add(new SimpleEntry<>("randomTree", Comparison::randomTree));
         methods.add(new SimpleEntry<>("ascHashTable", Comparison::ascHashTable));
         methods.add(new SimpleEntry<>("randomHashTable", Comparison::randomHashTable));
+
+        return methods;
+    }
+
+    public static List<String> dataStructureComparison(int n) {
+        ArrayList<SimpleEntry<String, Consumer<Integer>>> methods = getListOfMethods();
+        ArrayList<SimpleEntry<Long, String>> results = new ArrayList<>();
 
         long startTime;
 
@@ -100,11 +106,48 @@ public class Comparison {
     }
     
     public static List<Node> dataStructureComparisonTimesK(int n, int k) {
-        return new ArrayList<>();
+        ArrayList<SimpleEntry<String, Consumer<Integer>>> methods = getListOfMethods();
+        ArrayList<SimpleEntry<Long, String>> firstResults = new ArrayList<>();
+        ArrayList<SimpleEntry<Long, String>> secondResults = new ArrayList<>();
+        ArrayList<Node> finalResults = new ArrayList<>();
+
+        long startTime;
+
+        for(SimpleEntry<String, Consumer<Integer>> entry : methods) {
+            startTime = System.nanoTime();
+
+            entry.getValue().accept(n);
+
+            long duration = System.nanoTime() - startTime;
+
+            firstResults.add(new SimpleEntry<>(duration, entry.getKey()));
+
+            System.out.println("duration: " + duration + " " + entry.getKey());
+        }
+
+        for(SimpleEntry<String, Consumer<Integer>> entry : methods) {
+            startTime = System.nanoTime();
+
+            entry.getValue().accept(n * k);
+
+            long duration = System.nanoTime() - startTime;
+
+            secondResults.add(new SimpleEntry<>(duration, entry.getKey()));
+
+            System.out.println("duration: " + duration + " " + entry.getKey());
+        }
+
+        for(int i = 0; i < methods.size(); i++)
+            finalResults.add(new Node(methods.get(i).getKey(),
+                    + ((float) secondResults.get(i).getKey() / (float) firstResults.get(i).getKey())));
+
+        return finalResults;
     }
 
     public static void main(String[] args) {
-        dataStructureComparison(1000000);
+        //dataStructureComparison(1000000);
+
+        System.out.println(dataStructureComparisonTimesK(10000, 10));
     }
     
 }
