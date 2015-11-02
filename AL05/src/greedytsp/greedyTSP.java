@@ -2,7 +2,7 @@ package greedytsp;
 
 import java.util.*;
 
-public class greedyTSP {
+public class GreedyTSP {
 	
 	/* Greedy search */
 	public static int[] greedySolution(int[][] adjacencyMatrix){

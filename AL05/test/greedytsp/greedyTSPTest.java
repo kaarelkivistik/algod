@@ -1,9 +1,5 @@
 package greedytsp;
 
-import org.junit.Test;
-
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 
 import static org.junit.Assert.*;
@@ -11,7 +7,7 @@ import static org.junit.Assert.*;
 /**
  * Created by kaarel on 02/11/15.
  */
-public class greedyTSPTest {
+public class GreedyTSPTest {
 
     @org.junit.Test
     public void testGreedySolution() throws Exception {
@@ -23,7 +19,7 @@ public class greedyTSPTest {
                 {9, 6, 7, 3, 0}
         };
 
-        greedyTSP.greedySolution(adjacencyMatrix);
+        GreedyTSP.greedySolution(adjacencyMatrix);
     }
 
     @org.junit.Test
@@ -33,12 +29,12 @@ public class greedyTSPTest {
         visited.add(0);
         visited.add(2);
 
-        assertEquals(1, greedyTSP.findSmallestNotVisited(new int[]{10, 9, 0, 103, 94}, visited));
+        assertEquals(1, GreedyTSP.findSmallestNotVisited(new int[]{10, 9, 0, 103, 94}, visited));
 
         visited.clear();
         visited.add(0);
         visited.add(4);
 
-        assertEquals(5, greedyTSP.findSmallestNotVisited(new int[]{0, 900, 222, 439, 19, 28}, visited));
+        assertEquals(5, GreedyTSP.findSmallestNotVisited(new int[]{0, 900, 222, 439, 19, 28}, visited));
     }
 }
