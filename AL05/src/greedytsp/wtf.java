@@ -26,10 +26,6 @@ public class GreedyTSP {
 			visitedInOrder[iterator] = nextIndex;
 		}
 
-		for(int i = 0; i < visitedInOrder.length; i++) {
-			System.out.println("Index " + visitedInOrder[i]);
-		}
-
 		return visitedInOrder;
 	}
 
