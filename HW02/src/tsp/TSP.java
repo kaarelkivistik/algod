@@ -31,8 +31,20 @@ public class TSP {
                     bestDistance = distance;
                 }
             } else {
-                for(int[] child : children)
-                    stack.push(child);
+                int lowestBound = Integer.MAX_VALUE;
+                int[] promisingChild = null;
+
+                for(int[] child : children) {
+                    int bound = bound(adjacencyMatrix, child);
+
+                    if(bound < lowestBound) {
+                        lowestBound = bound;
+                        promisingChild = child;
+                    }
+
+                    if(promisingChild != null)
+                        stack.push(promisingChild);
+                }
             }
         }
 
