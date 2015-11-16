@@ -49,7 +49,7 @@ public class MyTSP {
         return optimalTour;
     }
 
-    public List<Integer> findOptimalTourUsingDfs() {
+    public List<Integer> findOptimalTourUsingDfs(boolean ignoreBounds) {
         Stack<Node> stack = new Stack<>();
 
         List<Integer> optimalTour = null;
@@ -71,12 +71,14 @@ public class MyTSP {
                         minLength = length;
                         optimalTour = tour;
                     }
+                } else if(ignoreBounds) {
+                    stack.push(new Node(tour));
                 } else {
                     Node u = new Node(tour);
                     u.setBound(bound(tour));
 
                     if(u.getBound() < minLength)
-                        stack.add(u);
+                        stack.push(u);
                 }
             }
         }

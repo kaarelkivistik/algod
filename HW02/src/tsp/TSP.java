@@ -6,7 +6,7 @@ public class TSP {
 	public static int[] dfs(int[][] adjacencyMatrix){
         MyTSP myTSP = new MyTSP(adjacencyMatrix);
 
-        return myTSP.findOptimalTourUsingDfs().stream().mapToInt(i -> i).toArray();
+        return myTSP.findOptimalTourUsingDfs(false).stream().mapToInt(i -> i).toArray();
 	}
 	
 	/* Best first search */

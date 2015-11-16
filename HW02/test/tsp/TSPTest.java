@@ -30,8 +30,8 @@ public class TSPTest {
     public void testBfsBig() throws Exception {
         MyTSP myTSP = new MyTSP(TestData.bigMatrix);
 
-        assertEquals("Result distance should be 1455",
-                1455, myTSP.length(myTSP.findOptimalTourUsingBfs()));
+        assertEquals("Result distance should be 893",
+                893, myTSP.length(myTSP.findOptimalTourUsingBfs()));
     }
 
     @Test
@@ -39,7 +39,15 @@ public class TSPTest {
         MyTSP myTSP = new MyTSP(TestData.smallMatrix);
 
         assertEquals("Result distance should be 405",
-                405, myTSP.length(myTSP.findOptimalTourUsingDfs()));
+                405, myTSP.length(myTSP.findOptimalTourUsingDfs(false)));
+    }
+
+    @Test
+    public void testDfsSmallWithoutBNB() throws Exception {
+        MyTSP myTSP = new MyTSP(TestData.smallMatrix);
+
+        assertEquals("Result distance should be 405",
+                405, myTSP.length(myTSP.findOptimalTourUsingDfs(true)));
     }
 
     @Test
@@ -47,14 +55,22 @@ public class TSPTest {
         MyTSP myTSP = new MyTSP(TestData.mediumMatrix);
 
         assertEquals("Result distance should be 772",
-                772, myTSP.length(myTSP.findOptimalTourUsingDfs()));
+                772, myTSP.length(myTSP.findOptimalTourUsingDfs(false)));
+    }
+
+    @Test
+    public void testDfsMediumWithoutBNB() throws Exception {
+        MyTSP myTSP = new MyTSP(TestData.mediumMatrix);
+
+        assertEquals("Result distance should be 772",
+                772, myTSP.length(myTSP.findOptimalTourUsingDfs(true)));
     }
 
     @Test
     public void testDfsBig() throws Exception {
         MyTSP myTSP = new MyTSP(TestData.bigMatrix);
 
-        assertEquals("Result distance should be 1455",
-                1455, myTSP.length(myTSP.findOptimalTourUsingDfs()));
+        assertEquals("Result distance should be 893",
+                893, myTSP.length(myTSP.findOptimalTourUsingDfs(false)));
     }
 }
