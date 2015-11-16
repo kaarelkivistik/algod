@@ -5,22 +5,14 @@ import java.util.*;
 /**
  * Created by kaarel on 16/11/15.
  */
-public class BFS {
+public class MyTSP {
     private int[][] matrix;
 
-    public BFS(int[][] matrix) {
+    public MyTSP(int[][] matrix) {
         this.matrix = matrix;
     }
 
-    public int[][] getMatrix() {
-        return matrix;
-    }
-
-    public void setMatrix(int[][] matrix) {
-        this.matrix = matrix;
-    }
-
-    public List<Integer> findOptimalTour() {
+    public List<Integer> findOptimalTourUsingBfs() {
         PriorityQueue<Node> queue = new PriorityQueue<>(Node.BOUND_COMPARATOR);
 
         List<Integer> optimalTour = null;
@@ -50,6 +42,41 @@ public class BFS {
                         if(u.getBound() < minLength)
                             queue.add(u);
                     }
+                }
+            }
+        }
+
+        return optimalTour;
+    }
+
+    public List<Integer> findOptimalTourUsingDfs() {
+        Stack<Node> stack = new Stack<>();
+
+        List<Integer> optimalTour = null;
+        Node v = new Node(Collections.singletonList(0));
+        int minLength = Integer.MAX_VALUE;
+
+        v.setBound(bound(v.getTour()));
+
+        stack.push(v);
+
+        while(!stack.isEmpty()) {
+            v = stack.pop();
+
+            for(List<Integer> tour : getNextPossibleTours(v.getTour())) {
+                if(tour.size() == matrix.length + 1) {
+                    int length = length(tour);
+
+                    if(length < minLength) {
+                        minLength = length;
+                        optimalTour = tour;
+                    }
+                } else {
+                    Node u = new Node(tour);
+                    u.setBound(bound(tour));
+
+                    if(u.getBound() < minLength)
+                        stack.add(u);
                 }
             }
         }
