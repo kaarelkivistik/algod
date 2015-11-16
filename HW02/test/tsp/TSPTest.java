@@ -9,23 +9,47 @@ import static org.junit.Assert.*;
  */
 public class TSPTest {
 
-    static int[][] smallMatrix = {
-            {0,   128,  71,  85, 185},
-            {128,   0,  91,  62,  58},
-            { 71,  91,   0,  29, 149},
-            { 85,  62,  29,   0, 120},
-            {185,  58, 149, 120,   0}};
-
 
     @Test
-    public void testDfs() throws Exception {
+    public void testBfsSmall() throws Exception {
+        BFS bfs = new BFS(TestData.smallMatrix);
+
         assertEquals("Result distance should be 405",
-                405, TSP.distanceOf(smallMatrix, TSP.dfs(smallMatrix)));
+                405, bfs.length(bfs.findOptimalTour()));
     }
 
     @Test
-    public void testBfs() throws Exception {
+    public void testBfsMedium() throws Exception {
+        BFS bfs = new BFS(TestData.mediumMatrix);
 
+        assertEquals("Result distance should be 772",
+                772, bfs.length(bfs.findOptimalTour()));
+    }
+
+    @Test
+    public void testBfsBig() throws Exception {
+        BFS bfs = new BFS(TestData.bigMatrix);
+
+        assertEquals("Result distance should be 1455",
+                1455, bfs.length(bfs.findOptimalTour()));
+    }
+
+    @Test
+    public void testDfsSmall() throws Exception {
+        assertEquals("Result distance should be 405",
+                405, TSP.distanceOf(TestData.smallMatrix, TSP.dfs(TestData.smallMatrix)));
+    }
+
+    @Test
+    public void testDfsMedium() throws Exception {
+        assertEquals("Result distance should be 772",
+                772, TSP.distanceOf(TestData.mediumMatrix, TSP.dfs(TestData.mediumMatrix)));
+    }
+
+    @Test
+    public void testDfsBig() throws Exception {
+        assertEquals("Result distance should be 1455",
+                1455, TSP.distanceOf(TestData.bigMatrix, TSP.dfs(TestData.bigMatrix)));
     }
 
     @Test
@@ -38,16 +62,16 @@ public class TSPTest {
 
     @Test
     public void testBound() throws Exception {
-        assertEquals(71 + 58 + 29 + 29 + 58, TSP.bound(smallMatrix, new int[]{}));
-        assertEquals(71 + 58 + 29 + 29 + 58, TSP.bound(smallMatrix, new int[]{0}));
-        assertEquals(128 + 58 + 29 + 29 + 58, TSP.bound(smallMatrix, new int[]{0, 1}));
-        assertEquals(128 + 91 + 29 + 29 + 58, TSP.bound(smallMatrix, new int[]{0, 1, 2}));
+        assertEquals(71 + 58 + 29 + 29 + 58, TSP.bound(TestData.smallMatrix, new int[]{}));
+        assertEquals(71 + 58 + 29 + 29 + 58, TSP.bound(TestData.smallMatrix, new int[]{0}));
+        assertEquals(128 + 58 + 29 + 29 + 58, TSP.bound(TestData.smallMatrix, new int[]{0, 1}));
+        assertEquals(128 + 91 + 29 + 29 + 58, TSP.bound(TestData.smallMatrix, new int[]{0, 1, 2}));
     }
 
     @Test
     public void testDistanceOf() throws Exception {
-        assertEquals(TSP.distanceOf(smallMatrix, new int[]{0}), 0);
-        assertEquals(TSP.distanceOf(smallMatrix, new int[]{0, 1, 2}), 128 + 91);
-        assertEquals(TSP.distanceOf(smallMatrix, new int[]{0, 1, 2, 3}), 128 + 91 + 29);
+        assertEquals(TSP.distanceOf(TestData.smallMatrix, new int[]{0}), 0);
+        assertEquals(TSP.distanceOf(TestData.smallMatrix, new int[]{0, 1, 2}), 128 + 91);
+        assertEquals(TSP.distanceOf(TestData.smallMatrix, new int[]{0, 1, 2, 3}), 128 + 91 + 29);
     }
 }

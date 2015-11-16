@@ -10,7 +10,7 @@ public class TSP {
 	public static int[] dfs(int[][] adjacencyMatrix){
         Stack<int[]> stack = new Stack<>();
 
-        int[] node = new int[]{};
+        int[] node = new int[]{0};
 
         stack.push(node);
 
@@ -32,28 +32,40 @@ public class TSP {
                 }
             } else {
                 int lowestBound = Integer.MAX_VALUE;
-                int[] promisingChild = null;
+                int[] bounds = new int[children.length];
 
-                for(int[] child : children) {
-                    int bound = bound(adjacencyMatrix, child);
+                for(int i = 0; i < children.length; i++) {
+                    int bound = bound(adjacencyMatrix, children[i]);
 
-                    if(bound < lowestBound) {
+                    if(bound < lowestBound)
                         lowestBound = bound;
-                        promisingChild = child;
-                    }
 
-                    if(promisingChild != null)
-                        stack.push(promisingChild);
+                    bounds[i] = bound;
                 }
+
+                for(int i = 0; i < children.length; i++) {
+                    if(bounds[i] == lowestBound)
+                        stack.push(children[i]);
+                }
+
+/*                if(promisingChild != null) {
+                    stack.push(promisingChild);
+                    System.out.println(Arrays.toString(promisingChild));
+                    System.out.println("Lowest bound " + lowestBound);
+                }*/
             }
         }
+
+        System.out.println(Arrays.toString(extendLeafNode(best)) + " " + distanceOf(adjacencyMatrix, extendLeafNode(best)));
 
         return extendLeafNode(best);
 	}
 	
 	/* Best first search */
 	public static int[] bfs(int[][] adjacencyMatrix) {
-		return null;
+        BFS bfs = new BFS(adjacencyMatrix);
+
+		return bfs.findOptimalTour().stream().mapToInt(i -> i).toArray();
 	}
 
     public static int[][] childrenOf(int numberOfTowns, int[] node) {

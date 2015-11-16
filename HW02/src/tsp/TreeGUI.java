@@ -1,7 +1,14 @@
 package tsp;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.event.TreeExpansionEvent;
+import javax.swing.event.TreeWillExpandListener;
 import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.ExpandVetoException;
+import javax.swing.tree.TreeNode;
+import javax.swing.tree.TreePath;
+import java.awt.event.MouseEvent;
 import java.util.Arrays;
 
 /**
@@ -9,20 +16,45 @@ import java.util.Arrays;
  */
 public class TreeGUI {
 
-    static int[][] smallMatrix = {
-            {0,   128,  71,  85, 185},
-            {128,   0,  91,  62,  58},
-            { 71,  91,   0,  29, 149},
-            { 85,  62,  29,   0, 120},
-            {185,  58, 149, 120,   0}};
+    static int[][] matrix = TestData.mediumMatrix;
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("TSP search tree");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        DefaultMutableTreeNode top = generateTree(new int[]{});
+        DefaultMutableTreeNode top = new DefaultMutableTreeNode(new TSPNode(new int[]{0}));
 
         JTree tree = new JTree(top);
+
+        tree.addMouseListener(new MouseInputAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+
+                if(e.getClickCount() == 2) {
+                    TreePath treePath = tree.getPathForLocation(e.getX(), e.getY());
+
+                    if(treePath != null) {
+                        DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) treePath.getLastPathComponent();
+                        TSPNode tspNode = (TSPNode) treeNode.getUserObject();
+
+                        if(tspNode != null && tspNode.getNode() != null) {
+                            int[][] children = TSP.childrenOf(matrix.length, tspNode.getNode());
+
+                            if(children == null)
+                                treeNode.add(new DefaultMutableTreeNode(new TSPNode(TSP.extendLeafNode(tspNode.getNode()))));
+                            else
+                                for (int[] child : children)
+                                    treeNode.add(new DefaultMutableTreeNode(new TSPNode(child)));
+
+                            tree.expandPath(treePath);
+                        }
+
+                        tree.treeDidChange();
+                    }
+                }
+            }
+        });
 
         for (int i = 0; i < tree.getRowCount(); i++) {
             //tree.expandRow(i);
@@ -33,7 +65,7 @@ public class TreeGUI {
         frame.setVisible(true);
     }
 
-    public static DefaultMutableTreeNode generateTree(int[] node) {
+/*    public static DefaultMutableTreeNode generateTree(int[] node) {
         DefaultMutableTreeNode swingNode = new DefaultMutableTreeNode(Arrays.toString(node) + " b:" + TSP.bound(smallMatrix, node));
 
         int[][] children = TSP.childrenOf(smallMatrix.length, node);
@@ -48,6 +80,27 @@ public class TreeGUI {
         }
 
         return swingNode;
-    }
+    }*/
 
+    static class TSPNode {
+        private int[] node;
+
+        public TSPNode(int[] node) {
+            this.node = node;
+        }
+
+        public int[] getNode() {
+            return node;
+        }
+
+        public void setNode(int[] node) {
+            this.node = node;
+        }
+
+        @Override
+        public String toString() {
+            return Arrays.toString(node) + " " + (node.length == matrix.length + 1 ?
+                    TSP.distanceOf(matrix, node) : "b:" + TSP.bound(matrix, node));
+        }
+    }
 }
