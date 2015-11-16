@@ -10,7 +10,6 @@ import java.util.Set;
  */
 public class Node {
 
-    private int value;
     private int bound;
     private List<Integer> tour;
 
@@ -28,10 +27,6 @@ public class Node {
 
     public List<Integer> getTour() {
         return tour;
-    }
-
-    public void setTour(List<Integer> tour) {
-        this.tour = tour;
     }
 
     public static final Comparator<Node> BOUND_COMPARATOR = new Comparator<Node>() {
