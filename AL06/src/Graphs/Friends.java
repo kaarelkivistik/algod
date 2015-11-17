@@ -10,6 +10,8 @@ public class Friends {
     private static ArrayList<Integer> connectionList;
     
     public static void bfs(int[][] adjacencyMatrix, int[] pair){
+        connectionList = null;
+
         LinkedList<ArrayList<Integer>> queue = new LinkedList<>();
 
         ArrayList<Integer> startingNode = new ArrayList<>();
