@@ -26,8 +26,8 @@
       <file leaf-file-name="Stamps.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/stamps/Stamps.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.618442">
-              <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.59618443">
+              <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -125,6 +125,7 @@
   <component name="PropertiesComponent">
     <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
     <property name="com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary" value="JUnit4" />
+    <property name="FullScreen" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CreateTestDialog.RecentsKey">
@@ -349,21 +350,6 @@
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="TestHistory">
-    <history-entry file="StampsTest - 2015.11.30 at 12h 45m 05s.xml">
-      <configuration name="StampsTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="StampsTest - 2015.11.30 at 12h 49m 06s.xml">
-      <configuration name="StampsTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="StampsTest - 2015.11.30 at 12h 54m 10s.xml">
-      <configuration name="StampsTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="StampsTest - 2015.11.30 at 12h 54m 37s.xml">
-      <configuration name="StampsTest" configurationId="JUnit" />
-    </history-entry>
-    <history-entry file="StampsTest - 2015.11.30 at 12h 55m 04s.xml">
-      <configuration name="StampsTest" configurationId="JUnit" />
-    </history-entry>
     <history-entry file="StampsTest - 2015.11.30 at 12h 55m 39s.xml">
       <configuration name="StampsTest" configurationId="JUnit" />
     </history-entry>
@@ -377,6 +363,21 @@
       <configuration name="StampsTest" configurationId="JUnit" />
     </history-entry>
     <history-entry file="StampsTest - 2015.11.30 at 12h 56m 24s.xml">
+      <configuration name="StampsTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="StampsTest - 2015.11.30 at 12h 59m 49s.xml">
+      <configuration name="StampsTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="StampsTest - 2015.11.30 at 13h 08m 48s.xml">
+      <configuration name="StampsTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="StampsTest - 2015.11.30 at 13h 12m 31s.xml">
+      <configuration name="StampsTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="StampsTest - 2015.11.30 at 13h 13m 49s.xml">
+      <configuration name="StampsTest" configurationId="JUnit" />
+    </history-entry>
+    <history-entry file="StampsTest - 2015.11.30 at 13h 14m 19s.xml">
       <configuration name="StampsTest" configurationId="JUnit" />
     </history-entry>
   </component>
@@ -471,8 +472,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/stamps/Stamps.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.618442">
-          <caret line="29" column="17" selection-start-line="29" selection-start-column="17" selection-end-line="29" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.59618443">
+          <caret line="25" column="9" selection-start-line="25" selection-start-column="9" selection-end-line="25" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

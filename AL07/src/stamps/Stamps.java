@@ -8,11 +8,11 @@ import java.util.stream.IntStream;
 public class Stamps {
 
     public ArrayList<Integer> findstamps(int sum, int[] stamps) {
-        int[] m = new int[sum], v = new int[sum];
+        int[] m = new int[sum + 1], v = new int[sum + 1];
 
         Arrays.sort(stamps);
 
-        for(int i = 0; i < sum; i++) {
+        for(int i = 0; i <= sum; i++) {
             m[i] = Integer.MAX_VALUE;
 
             for(int j = stamps.length - 1; j >= 0; j--) {
@@ -27,7 +27,7 @@ public class Stamps {
 
         ArrayList<Integer> answer = new ArrayList<>();
 
-        int n = 54;
+        int n = sum;
 
         while(n > 0) {
             answer.add(v[n]);
