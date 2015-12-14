@@ -12,7 +12,6 @@ public class Maze {
     private boolean[][] visited;
 
     private static final Character EAST = 'E';
-    private static final Character KANYE = 'Y';
     private static final Character WEST = 'W';
     private static final Character SOUTH = 'S';
     private static final Character NORTH = 'N';
